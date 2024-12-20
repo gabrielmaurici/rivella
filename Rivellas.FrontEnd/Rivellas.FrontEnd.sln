@@ -4,6 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{10E8B22D-64A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivellas.Blazor", "src\Rivellas.Blazor\Rivellas.Blazor.csproj", "{8CCC86D3-B98C-4F72-8171-202579C0720B}"
 EndProject
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
