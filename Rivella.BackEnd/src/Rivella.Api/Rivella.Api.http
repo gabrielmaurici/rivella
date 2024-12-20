@@ -1,0 +1,6 @@
+@Rivella.Api_HostAddress = http://localhost:5036
+
+GET {{Rivella.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
