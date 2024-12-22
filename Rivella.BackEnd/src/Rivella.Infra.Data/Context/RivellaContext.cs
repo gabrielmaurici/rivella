@@ -4,8 +4,13 @@ using Rivella.Domain.Entity;
 
 namespace Rivella.Infra.Data.Context;
 
-public class RivellaContext(DbContextOptions<RivellaContext> context) : DbContext(context)
+public class RivellaContext : DbContext
 {
+    public RivellaContext(DbContextOptions<RivellaContext> context) : base(context)
+    {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+    }
+    
     public DbSet<Album> Albums { get; private set; }
     public DbSet<Photo> Photos { get; private set; }
 

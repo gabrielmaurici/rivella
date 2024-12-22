@@ -8,19 +8,26 @@ public class AlbumMapping : IEntityTypeConfiguration<Album>
 {
     public void Configure(EntityTypeBuilder<Album> builder)
     {
-        builder.ToTable(nameof(Album));
-        builder.HasKey(x => x.Id);
+        builder.ToTable("albums", "public");
+        
+        builder.Property(x => x.Id)
+            .HasColumnName("id")
+            .HasColumnType("serial");
         
         builder.Property(x => x.Code)
-            .HasColumnName("Code")
-            .HasColumnType("uniqueidentifier");
+            .HasColumnName("code")
+            .HasColumnType("uuid");
         
         builder.Property(x => x.Name)
-            .HasColumnName("Name")
+            .HasColumnName("name")
             .HasColumnType("varchar(100)");
         
         builder.Property(x => x.RevelationDate)
-            .HasColumnName("RevelationDate")
-            .HasColumnType("datetime");
+            .HasColumnName("revelation_date")
+            .HasColumnType("timestamp");
+        
+        builder.Property(x => x.DateCreated)
+            .HasColumnName("date_created")
+            .HasColumnType("timestamp");
     }
 }

@@ -7,12 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="UseCases\Album\" />
-      <Folder Include="UseCases\Photo\Common\" />
+      <PackageReference Include="CloudinaryDotNet" Version="1.27.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Rivella.Domain\Rivella.Domain.csproj" />
+      <ProjectReference Include="..\Rivella.Application\Rivella.Application.csproj" />
     </ItemGroup>
 
 </Project>

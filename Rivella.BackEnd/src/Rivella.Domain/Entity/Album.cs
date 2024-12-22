@@ -9,6 +9,7 @@ public class Album : AggregateRoot<int>
         Code = Guid.NewGuid();
         Name = name;
         RevelationDate = revelationDate;
+        DateCreated = DateTime.Now;
 
         Validate();
     }
@@ -16,6 +17,7 @@ public class Album : AggregateRoot<int>
     public Guid Code { get; private set; }
     public string Name { get; private set; }
     public DateTime RevelationDate { get; private set; }
+    public DateTime DateCreated { get; private set; }
     public virtual List<Photo> Photos { get; private set; } = [];
     
     private void Validate()

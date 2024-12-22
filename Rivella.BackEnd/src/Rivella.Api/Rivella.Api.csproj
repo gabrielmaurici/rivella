@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
@@ -20,6 +21,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Rivella.Application\Rivella.Application.csproj" />
+      <ProjectReference Include="..\Rivella.Infra.Data\Rivella.Infra.Data.csproj" />
+      <ProjectReference Include="..\Rivella.Infra.Storage\Rivella.Infra.Storage.csproj" />
     </ItemGroup>
 
 </Project>
