@@ -10,7 +10,7 @@ public static class StorageConfiguration
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var teste = configuration.GetValue<string>("CLOUDINARY");
+        Console.WriteLine("cloud: " + configuration.GetConnectionString("CLOUDINARY"));
         services.AddSingleton(new Cloudinary(configuration.GetValue<string>("CLOUDINARY")));
         services.AddTransient<IStorageService, StorageService>();
         

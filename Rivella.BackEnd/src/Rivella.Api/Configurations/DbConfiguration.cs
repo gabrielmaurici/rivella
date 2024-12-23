@@ -10,6 +10,7 @@ public static class DbConfiguration
         IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("RivellaDb");
+        Console.WriteLine("Teste: " + connectionString);
         services.AddDbContext<RivellaContext>(options => options.UseNpgsql(
             connectionString
         ));
