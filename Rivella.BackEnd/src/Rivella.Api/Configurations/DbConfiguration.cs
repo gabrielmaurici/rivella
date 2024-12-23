@@ -11,6 +11,7 @@ public static class DbConfiguration
     {
         var connectionString = configuration.GetConnectionString("RivellaDb");
         Console.WriteLine("Teste: " + connectionString);
+        Console.WriteLine("TESTE: " + Environment.GetEnvironmentVariable("RivellaDb"));
         services.AddDbContext<RivellaContext>(options => options.UseNpgsql(
             connectionString
         ));

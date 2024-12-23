@@ -16,6 +16,9 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+Console.WriteLine("app1 "+app.Configuration.GetValue<string>("CLOUDINARY"));
+Console.WriteLine("app2 "+app.Configuration.GetValue<string>("RivellaDb"));
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

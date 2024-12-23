@@ -11,6 +11,7 @@ public static class StorageConfiguration
         IConfiguration configuration)
     {
         Console.WriteLine("cloud: " + configuration.GetConnectionString("CLOUDINARY"));
+        Console.WriteLine("cloudEnv: " + Environment.GetEnvironmentVariable("CLOUDINARY"));
         services.AddSingleton(new Cloudinary(configuration.GetValue<string>("CLOUDINARY")));
         services.AddTransient<IStorageService, StorageService>();
         
