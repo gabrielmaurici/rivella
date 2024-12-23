@@ -5,13 +5,9 @@ namespace Rivella.Api.Configurations;
 
 public static class DbConfiguration
 {
-    public static IServiceCollection AddDbConnection(
-        this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection AddDbConnection(this IServiceCollection services)
     {
-        var connectionString = configuration.GetConnectionString("RivellaDb");
-        Console.WriteLine("Teste: " + connectionString);
-        Console.WriteLine("TESTE: " + Environment.GetEnvironmentVariable("RivellaDb"));
+        var connectionString = Environment.GetEnvironmentVariable("RivellaDb");
         services.AddDbContext<RivellaContext>(options => options.UseNpgsql(
             connectionString
         ));
