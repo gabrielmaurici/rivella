@@ -1,7 +1,39 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<div class="home-container">
+    <div class="hero-section">
+        <h1 class="site-title">Rivella</h1>
+        <p class="tagline">Suas memórias no tempo certo</p>
+        <p class="description">
+            No Rivella, você cria álbuns com memórias e uma data de revelação. Até lá, suas memórias permanecem guardadas, esperando o momento certo para serem reveladas.
+        </p>
+        <button class="btn-primary" @onclick="NavigateToCreateAlbum">
+            Criar Álbum
+        </button>
+    </div>
 
-<h1>Hello, world!</h1>
+    <div class="features-section">
+        <h2>Como funciona?</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <h3>Crie um álbum 📖✨</h3>
+                <p>Escolha um nome, adicione uma descrição e defina uma data de revelação.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Registre memórias 📸💥</h3>
+                <p>Envie fotos para o álbum e compartilhe o link com seus amigos/familiares.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Espere o momento ⏳🔓</h3>
+                <p>As fotos só poderão ser visualizadas após a data de revelação.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-Welcome to your new app.
+@code {
+    private void NavigateToCreateAlbum()
+    {
+        // NavigationManager.NavigateTo("/create-album");
+    }
+}
