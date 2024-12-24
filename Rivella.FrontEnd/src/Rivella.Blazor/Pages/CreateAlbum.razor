@@ -1,0 +1,40 @@
+@page "/create-album"
+
+<div class="create-album-container">
+    <h2>Criação de Álbum</h2>
+    <p>Preencha os campos abaixo para criar seu álbum e definir a data de revelação.</p>
+    
+    <EditForm Model="@album" OnValidSubmit="HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="albumName">Nome do Álbum</label>
+            <InputText id="albumName" class="form-control" @bind-Value="album.Name" />
+        </div>
+
+        <div class="form-group">
+            <label for="revealDate">Data de Revelação</label>
+            <InputDate Type="InputDateType.DateTimeLocal"
+                min="@DateTime.Today.ToString("dd-MM-yyyy")" @bind-Value="@album.RevealDate" 
+            />
+        </div>
+
+        <button type="submit" class="btn-primary">Criar Álbum</button>
+    </EditForm>
+</div>
+
+@code {
+    private Album album = new Album();
+
+    private void HandleSubmit()
+    {
+        Console.WriteLine($"Álbum '{album.Name}' criado com sucesso para revelação em {album.RevealDate}");
+    }
+
+    public class Album
+    {
+        public string Name { get; set; }
+        public DateTime RevealDate { get; set; }
+    }
+}
