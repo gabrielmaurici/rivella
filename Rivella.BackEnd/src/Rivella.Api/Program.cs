@@ -8,11 +8,16 @@ builder.Services.AddDbConnection();
 builder.Services.AddStorageConfiguration();
 builder.Services.AddUseCases();
 
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
-builder.Services.AddAntiforgery();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(config =>
+        config.WithOrigins("https://localhost:7278")
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
 var app = builder.Build();
 
@@ -22,8 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
 app.RegisterAlbumEndpoints();
 app.RegisterPhotoEndpoints();
-
 app.UseHttpsRedirection();
 app.Run();

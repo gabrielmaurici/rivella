@@ -1,0 +1,67 @@
+@using Rivella.Blazor.Models.Photo
+@using Rivella.Blazor.Services.Album.UploadPhoto
+
+@inject IJSRuntime JsRuntime
+@inject IUploadPhotoService UploadPhotoService
+
+
+<div class="modal-overlay" style="display: @(IsVisible ? "flex" : "none")">
+    <div class="modal-content">
+        <h3>Detalhes da Foto</h3>
+        <div>
+            <label for="photoTaker">Foto tirada por:</label>
+            <input id="photoTaker" type="text" @bind="PhotoTaker" placeholder="Nome do fotógrafo" />
+        </div>
+        <div>
+            <label for="photoCaption">Legenda:</label>
+            <input id="photoCaption" type="text" @bind="PhotoCaption" placeholder="Escreva uma legenda" />
+        </div>
+        <div class="preview">
+            <img src="@PhotoPreview" alt="Pré-visualização da foto" class="photo-preview" />
+        </div>
+        <button class="btn" @onclick="Confirm">Confirmar Envio</button>
+        <button class="btn cancel" @onclick="Cancel">Cancelar</button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int AlbumId { get; set; }
+    [Parameter] public string? PhotoPreview { get; set; }
+    [Parameter] public IBrowserFile? Image { get; set; }
+    [Parameter] public bool IsVisible { get; set; }
+    [Parameter] public EventCallback<bool> OnConfirm { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    
+    private string? PhotoTaker { get; set; }
+    private string? PhotoCaption { get; set; }
+
+    private async Task Confirm()
+    {
+        try
+        {
+            if (Image == null)
+                return;
+
+            var upload = new UploadPhotoModel(
+                AlbumId,
+                PhotoTaker,
+                PhotoCaption,
+                Image!
+            );
+            await UploadPhotoService.UploadAsync(upload);
+            await OnConfirm.InvokeAsync(true);
+            await JsRuntime.InvokeVoidAsync("alert", $"Foto enviada com sucesso!");
+
+        }
+        catch (Exception ex)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", $"Erro ao gravar foto: {ex.Message}");
+        }
+    }
+
+    private void Cancel()
+    {
+        // Fecha o modal sem fazer nada
+        OnCancel.InvokeAsync();
+    }
+}

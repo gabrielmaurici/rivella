@@ -1,0 +1,145 @@
+@page "/album/{code:guid}"
+
+@using System.Timers
+@using Rivella.Blazor.Components.UploadPhotoModal
+@using Rivella.Blazor.Services.Album.GetAlbum
+
+@inject IJSRuntime JsRuntime
+@inject IGetAlbumService GetAlbumService
+
+@if (!IsLoaded)
+{
+    <div class="loading">
+        <p>Carregando informações do álbum...</p>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="album-container">
+            <h1 class="album-title">@AlbumModel!.Name</h1>
+            <p class="album-description">@AlbumModel.Name</p>
+
+            <div class="qrcode-section">
+                <img src="@QRCodeUrl" alt="QR Code" class="qrcode" />
+            </div>
+
+            <div class="countdown-section">
+                <h2>Contagem Regressiva</h2>
+                <div class="countdown-timer">@Countdown</div>
+            </div>
+
+            <div class="photo-section">
+                <h2>Enviar Foto</h2>
+                <label for="cameraInput" class="btn">Tirar Foto</label>
+                <InputFile id="cameraInput" accept="image/*" capture="user" OnChange="ProcessPhoto" style="display: none;" />
+            </div>
+            
+            <UploadPhotoModal
+                AlbumId="AlbumModel!.Id"
+                PhotoPreview="@PhotoPreview"
+                Image="@Image"
+                IsVisible="@IsModalVisible"
+                OnConfirm="HandleConfirm"
+                OnCancel="HandleCancel"
+            />
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Guid Code { get; set; }
+
+    const int MaxFileSize = 5 * 1024 * 1024;
+    private AlbumResponseModel? AlbumModel { get; set; }
+    private string QRCodeUrl { get; set; } = "https://via.placeholder.com/150";
+    private string? Countdown { get; set; }
+    private Timer CountdownTimer { get; set; } = null!;
+    private string? PhotoPreview { get; set; }
+    private IBrowserFile? Image { get; set; }
+    private bool IsModalVisible { get; set; }
+    private bool IsLoaded { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            AlbumModel = await GetAlbumService.GetAsync(Code);
+
+            CountdownTimer = new Timer(1000);
+            CountdownTimer.Elapsed += UpdateCountdown!;
+            CountdownTimer.Start();
+        }
+        catch (Exception ex)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", $"Erro ao buscar albúm: {ex.Message}");
+        }
+        finally
+        {
+            IsLoaded = true;
+        }
+    }
+
+    private void UpdateCountdown(object sender, ElapsedEventArgs e)
+    {
+        var remainingTime = AlbumModel!.RevelationDate - DateTime.Now;
+
+        if (remainingTime.TotalSeconds <= 0)
+        {
+            Countdown = "O álbum foi revelado!";
+            CountdownTimer.Stop();
+        }
+        else
+        {
+            Countdown = $"{remainingTime.Days}d {remainingTime.Hours}h {remainingTime.Minutes}m {remainingTime.Seconds}s";
+        }
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    private async Task ProcessPhoto(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            var file = e.File;
+            Image = file;
+
+            if (Image.Size > MaxFileSize)
+            {
+                Console.WriteLine($"O arquivo excede o limite de {MaxFileSize / (1024 * 1024)} MB.");
+                return;
+            }
+
+            var buffer = new byte[Image.Size];
+            _ = await Image.OpenReadStream(MaxFileSize).ReadAsync(buffer);
+
+            var imageBase64 = Convert.ToBase64String(buffer);
+            PhotoPreview = $"data:image/jpeg;base64,{imageBase64}";
+
+
+            IsModalVisible = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao processar a foto: {ex.Message}");
+        }
+    }
+
+    private void HandleConfirm(bool confirmed)
+    {
+        if (confirmed)
+        {
+            // Lógica para confirmar o envio da foto, salvar informações etc.
+        }
+
+        // Fechar o modal
+        IsModalVisible = false;
+    }
+
+    private void HandleCancel()
+    {
+        // Fechar o modal sem fazer nada
+        IsModalVisible = false;
+    }
+}

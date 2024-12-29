@@ -1,5 +1,7 @@
 ﻿@page "/"
 
+@inject NavigationManager NavigationManager
+
 <div class="home-container">
     <div class="hero-section">
         <h1 class="site-title">Rivella</h1>
@@ -34,6 +36,6 @@
 @code {
     private void NavigateToCreateAlbum()
     {
-        // NavigationManager.NavigateTo("/create-album");
+        NavigationManager.NavigateTo("/criar-album");
     }
 }

@@ -5,4 +5,5 @@ namespace Rivella.Domain.Repository;
 
 public interface IAlbumRepository : IRepository<Album, int>
 {
+    Task<Album?> GetAsync(Guid code);
 }

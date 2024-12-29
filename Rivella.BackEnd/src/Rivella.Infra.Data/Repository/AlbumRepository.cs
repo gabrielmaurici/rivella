@@ -17,6 +17,13 @@ public class AlbumRepository(RivellaContext context) : IAlbumRepository
         return await context.Albums.FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<Album?> GetAsync(Guid code)
+    {
+        return await context.Albums
+            .Include(x => x.Photos)
+            .FirstOrDefaultAsync(x => x.Code == code);
+    }
+
     public Task Update(Album model)
     {
         context.Albums.Update(model);

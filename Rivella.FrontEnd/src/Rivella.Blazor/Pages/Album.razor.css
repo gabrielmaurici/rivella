@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F2F2F2;
+    color: #48358C;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.album-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.album-title {
+    color: #F2389E;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.album-description {
+    color: #69188C;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.qrcode-section {
+    margin: 20px 0;
+}
+
+.qrcode {
+    width: 150px;
+    height: 150px;
+}
+
+.countdown-section {
+    margin: 20px 0;
+}
+
+.countdown-timer {
+    font-size: 1.5rem;
+    color: #56BFA1;
+}
+
+.photo-section {
+    margin: 30px 0;
+}
+
+img.photo-preview {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.camera-view {
+    width: 100%;
+    max-width: 300px;
+    border: 2px solid #69188C;
+    border-radius: 5px;
+}
+
+.snapshot {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 300px;
+    border: 2px solid #56BFA1;
+    border-radius: 5px;
+}
+
+.btn {
+    background-color: #F2389E;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #69188C;
+}
+
+/* Quando o modal é exibido, a sobreposição de fundo escuro deve ser visível */
+.modal-overlay {
+    display: flex; /* Torna o modal visível */
+}

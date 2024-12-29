@@ -1,3 +1,4 @@
+using Rivella.Application.UseCases.Album;
 using Rivella.Application.UseCases.Album.Common;
 using Rivella.Application.UseCases.Album.CreateAlbum;
 
@@ -18,13 +19,15 @@ public static class AlbumEndpoints
         .Produces(StatusCodes.Status400BadRequest)
         .Produces(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status500InternalServerError);
-
-
-        // endpoints.MapGet("customers/{id}", async (int id, IGetCustomerService getCustomerService) => {
-        //
-        //         return TypedResults.Ok(await getCustomerService.GetAsync(id));
-        //     })
-        //     .WithName("GetCustomer")
-        //     .WithOpenApi();
+        
+        endpoints.MapGet("albums/{code:guid}", async (Guid code, IGetAlbum getAlbum) => {
+            return TypedResults.Ok(await getAlbum.GetAsync(code));
+        })
+        .WithName("GetAlbum")
+        .WithOpenApi()
+        .Produces(StatusCodes.Status200OK, typeof(AlbumOutput))
+        .Produces(StatusCodes.Status400BadRequest)
+        .Produces(StatusCodes.Status404NotFound)
+        .Produces(StatusCodes.Status500InternalServerError);
     }
 }

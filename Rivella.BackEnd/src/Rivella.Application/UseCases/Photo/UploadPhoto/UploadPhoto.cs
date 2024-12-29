@@ -13,7 +13,7 @@ public class UploadPhoto(
     public async Task Upload(UploadPhotoInput input)
     {
         var album = await albumRepository.GetAsync(input.IdAlbum) ??
-            throw new NullReferenceException($"Album com Id {input.IdAlbum} não encontrado");
+            throw new KeyNotFoundException($"Album com Id {input.IdAlbum} não encontrado");
 
         var filename = StorageFileName.Create(album.Id);
         var photoUrl = await storageService.Upload(filename, input.Image);

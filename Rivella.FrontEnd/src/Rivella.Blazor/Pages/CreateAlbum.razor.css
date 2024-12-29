@@ -1,8 +1,15 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .create-album-container {
     width: 100%;
     max-width: 600px;
-    margin: 2rem auto;
-    background-color: #ffffff;
+    background-color: #F2F2F2;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -26,7 +33,7 @@
 .form-group label {
     display: block;
     font-weight: bold;
-    color: #69188C;
+    color: #F2389E;
     margin-bottom: 0.5rem;
 }
 

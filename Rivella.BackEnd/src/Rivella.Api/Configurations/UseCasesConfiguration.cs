@@ -1,4 +1,5 @@
 using Rivella.Application.Interfaces;
+using Rivella.Application.UseCases.Album;
 using Rivella.Application.UseCases.Album.CreateAlbum;
 using Rivella.Application.UseCases.Photo.UploadPhoto;
 using Rivella.Domain.Repository;
@@ -30,6 +31,7 @@ public static class UseCasesConfiguration
     {
         services.AddTransient<ICreateAlbum, CreateAlbum>();
         services.AddTransient<IUploadPhoto, UploadPhoto>();
+        services.AddTransient<IGetAlbum, GetAlbum>();
         
         return services;
     }
