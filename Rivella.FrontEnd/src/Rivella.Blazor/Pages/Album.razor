@@ -20,29 +20,49 @@ else
             <h1 class="album-title">@AlbumModel!.Name</h1>
             <p class="album-description">@AlbumModel.Name</p>
 
-            <div class="qrcode-section">
+            <div class="qrcode-section" style="@(IsAlbumRevealed ? "display: none;" : "")">
                 <img src="@QRCodeUrl" alt="QR Code" class="qrcode" />
             </div>
 
-            <div class="countdown-section">
-                <h2>Contagem Regressiva</h2>
-                <div class="countdown-timer">@Countdown</div>
-            </div>
+            @if (!IsAlbumRevealed)
+            {
+                <div class="countdown-section">
+                    <h2>Contagem Regressiva</h2>
+                    <div class="countdown-timer">@Countdown</div>
+                </div>
 
-            <div class="photo-section">
-                <h2>Enviar Foto</h2>
-                <label for="cameraInput" class="btn">Tirar Foto</label>
-                <InputFile id="cameraInput" accept="image/*" capture="user" OnChange="ProcessPhoto" style="display: none;" />
-            </div>
-            
-            <UploadPhotoModal
-                AlbumId="AlbumModel!.Id"
-                PhotoPreview="@PhotoPreview"
-                Image="@Image"
-                IsVisible="@IsModalVisible"
-                OnConfirm="HandleConfirm"
-                OnCancel="HandleCancel"
-            />
+                <div class="photo-section">
+                    <h2>Enviar Foto</h2>
+                    <label for="cameraInput" class="btn">Tirar Foto</label>
+                    <InputFile id="cameraInput" accept="image/*" capture="user" OnChange="ProcessPhoto" style="display: none;" />
+                </div>
+
+                <UploadPhotoModal
+                    AlbumId="AlbumModel!.Id"
+                    PhotoPreview="@PhotoPreview"
+                    Image="@Image"
+                    IsVisible="@IsModalVisible"
+                    OnConfirm="HandleConfirm"
+                    OnCancel="HandleCancel"
+                />
+            }
+            else
+            {
+                <div class="photos-section">
+                    <div class="photos-list">
+                        @foreach (var photo in AlbumModel.Photos.OrderBy(p => p.UserName))
+                        {
+                            <div class="photo-item">
+                                <img src="@photo.Url" alt="Foto de @photo.UserName" class="photo-image" />
+                                <div class="photo-overlay">
+                                    <p class="photo-username">@photo.UserName</p>
+                                    <p class="photo-description">@photo.Description</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
         </div>
     </div>
 }
@@ -60,6 +80,7 @@ else
     private IBrowserFile? Image { get; set; }
     private bool IsModalVisible { get; set; }
     private bool IsLoaded { get; set; }
+    private bool IsAlbumRevealed { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -67,13 +88,20 @@ else
         {
             AlbumModel = await GetAlbumService.GetAsync(Code);
 
-            CountdownTimer = new Timer(1000);
-            CountdownTimer.Elapsed += UpdateCountdown!;
-            CountdownTimer.Start();
+            if (DateTime.Now >= AlbumModel.RevelationDate)
+            {
+                IsAlbumRevealed = true;
+            }
+            else
+            {
+                CountdownTimer = new Timer(1000);
+                CountdownTimer.Elapsed += UpdateCountdown!;
+                CountdownTimer.Start();
+            }
         }
         catch (Exception ex)
         {
-            await JsRuntime.InvokeVoidAsync("alert", $"Erro ao buscar albúm: {ex.Message}");
+            await JsRuntime.InvokeVoidAsync("alert", $"Erro ao buscar álbum: {ex.Message}");
         }
         finally
         {
@@ -89,6 +117,7 @@ else
         {
             Countdown = "O álbum foi revelado!";
             CountdownTimer.Stop();
+            IsAlbumRevealed = true;
         }
         else
         {
@@ -117,7 +146,6 @@ else
             var imageBase64 = Convert.ToBase64String(buffer);
             PhotoPreview = $"data:image/jpeg;base64,{imageBase64}";
 
-
             IsModalVisible = true;
         }
         catch (Exception ex)
@@ -128,18 +156,11 @@ else
 
     private void HandleConfirm(bool confirmed)
     {
-        if (confirmed)
-        {
-            // Lógica para confirmar o envio da foto, salvar informações etc.
-        }
-
-        // Fechar o modal
         IsModalVisible = false;
     }
 
     private void HandleCancel()
     {
-        // Fechar o modal sem fazer nada
         IsModalVisible = false;
     }
 }
