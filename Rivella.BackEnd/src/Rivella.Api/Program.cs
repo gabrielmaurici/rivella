@@ -14,7 +14,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(config =>
-        config.WithOrigins("https://localhost:7278")
+        config
+            .WithOrigins(
+                "https://localhost:7278",
+                "https://rivellas.onrender.com"
+            )
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
