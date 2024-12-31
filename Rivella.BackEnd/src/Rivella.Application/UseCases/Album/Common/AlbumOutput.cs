@@ -21,7 +21,8 @@ public record AlbumOutput(
                 new PhotoOutput(
                     photo.UserName, 
                     photo.Description, 
-                    photo.Url
+                    photo.Url,
+                    photo.DateUpload
                 )
             ).ToList()
         );
@@ -31,7 +32,8 @@ public record AlbumOutput(
 public record PhotoOutput(
     string? UserName,
     string? Description,
-    string Url
+    string Url,
+    DateTime DateUpload
 );
 
 

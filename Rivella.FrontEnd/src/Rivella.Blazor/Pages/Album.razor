@@ -15,26 +15,28 @@
 }
 else
 {
-    <div class="container">
+    <div class="main-container">
+        <div>
+            <h1 class="site-title">rivella.</h1>
+        </div>
         <div class="album-container">
             <h1 class="album-title">@AlbumModel!.Name</h1>
             <p class="album-description">@AlbumModel.Name</p>
 
             <div class="qrcode-section" style="@(IsAlbumRevealed ? "display: none;" : "")">
-                <img src="@QRCodeUrl" alt="QR Code" class="qrcode" />
+                <img src="@QRCodeUrl" alt="QR Code" class="qrcode"/>
             </div>
 
             @if (!IsAlbumRevealed)
             {
                 <div class="countdown-section">
-                    <h2>Contagem Regressiva</h2>
+                    <p>Contagem Regressiva</p>
                     <div class="countdown-timer">@Countdown</div>
                 </div>
 
                 <div class="photo-section">
-                    <h2>Enviar Foto</h2>
-                    <label for="cameraInput" class="btn">Tirar Foto</label>
-                    <InputFile id="cameraInput" accept="image/*" capture="user" OnChange="ProcessPhoto" style="display: none;" />
+                    <label for="cameraInput" class="btn">Enviar memórias</label>
+                    <InputFile id="cameraInput" accept="image/*" capture="user" OnChange="ProcessPhoto" style="display: none"/>
                 </div>
 
                 <UploadPhotoModal
@@ -43,17 +45,16 @@ else
                     Image="@Image"
                     IsVisible="@IsModalVisible"
                     OnConfirm="HandleConfirm"
-                    OnCancel="HandleCancel"
-                />
+                    OnCancel="HandleCancel"/>
             }
             else
             {
                 <div class="photos-section">
                     <div class="photos-list">
-                        @foreach (var photo in AlbumModel.Photos.OrderBy(p => p.UserName))
+                        @foreach (var photo in AlbumModel.Photos.OrderBy(p => p.DateUpload))
                         {
                             <div class="photo-item">
-                                <img src="@photo.Url" alt="Foto de @photo.UserName" class="photo-image" />
+                                <img src="@photo.Url" alt="Foto de @photo.UserName" class="photo-image"/>
                                 <div class="photo-overlay">
                                     <p class="photo-username">@photo.UserName</p>
                                     <p class="photo-description">@photo.Description</p>
@@ -115,7 +116,6 @@ else
 
         if (remainingTime.TotalSeconds <= 0)
         {
-            Countdown = "O álbum foi revelado!";
             CountdownTimer.Stop();
             IsAlbumRevealed = true;
         }

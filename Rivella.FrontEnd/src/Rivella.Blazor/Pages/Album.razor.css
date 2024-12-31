@@ -6,33 +6,47 @@ body {
     color: #48358C;
 }
 
-.container {
+.main-container {
     height: 100vh;
     width: 100vw;
-    
+    background-color: #cdac53;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+.site-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #171515;
+}
+
 .album-container {
+    height: 80vh;
+    width: 90vw;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 2rem 0;
     padding: 20px;
     text-align: center;
     background-color: #FFF;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #171515;
 }
 
 .album-title {
-    color: #F2389E;
+    color: #cdac53;
     font-size: 2rem;
     margin-bottom: 10px;
 }
 
 .album-description {
-    color: #69188C;
+    color: #171515;
     font-size: 1.2rem;
     margin-bottom: 20px;
 }
@@ -52,7 +66,7 @@ body {
 
 .countdown-timer {
     font-size: 1.5rem;
-    color: #56BFA1;
+    color: #cdac53;
 }
 
 .photo-section {
@@ -85,26 +99,12 @@ img.photo-preview {
     margin-bottom: 20px;
 }
 
-.album-title {
-    color: #F2389E;
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-.album-description {
-    color: #69188C;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-}
-
-/* Seção de fotos com rolagem */
 .photos-section {
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 2px solid #69188C;
     text-align: center;
-    max-height: calc(100vh - 200px); /* Espaço ajustado para título e descrição */
-    overflow-y: auto; /* Adiciona rolagem vertical */
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
 }
 
 .photos-list {
@@ -173,18 +173,20 @@ img.photo-preview {
 }
 
 .btn {
-    background-color: #F2389E;
-    color: white;
+    background-color: #171515;
+    color: #e3e8e7;
     border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #69188C;
+    background-color: #cdac53;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Quando o modal é exibido, a sobreposição de fundo escuro deve ser visível */

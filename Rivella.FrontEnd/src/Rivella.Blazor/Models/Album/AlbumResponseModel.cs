@@ -11,5 +11,6 @@ public record AlbumResponseModel(
 public record PhotoOutput(
     string? UserName,
     string? Description,
-    string Url
+    string Url,
+    DateTime DateUpload
 );
