@@ -1,32 +1,31 @@
-.photo-section {
-    margin: 30px 0;
-}
-
-img.photo-preview {
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
 .photos-section {
+    position: relative;
     margin-top: 30px;
-    padding-top: 20px;
-    text-align: center;
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
+    max-width: 100%; /* Largura total do container */
+    overflow-x: scroll; /* Habilita o scroll horizontal */
+    scroll-snap-type: x mandatory; /* Ativa o snapping no scroll horizontal */
+    display: flex;
+    justify-content: center;
 }
 
 .photos-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 10px;
+    display: flex; /* Alinha os itens horizontalmente */
+    gap: 0; /* Remove espaçamento entre os itens */
+}
+
+span {
+    display: block;
 }
 
 .photo-item {
+    flex: 0 0 100%; /* Cada item ocupa 100% da largura do container */
+    height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: center; /* Centraliza o item visível no viewport */
     position: relative;
-    height: 57vh;
     padding: 1rem 1rem 0;
     border-radius: 5px;
     overflow: hidden;
@@ -42,49 +41,30 @@ img.photo-preview {
 }
 
 .photo-image {
-    width: 73vw;
+    width: 73vw; /* Mantém o mesmo tamanho */
     height: 400px;
     object-fit: contain;
     background-color: #dcdbdb;
 }
 
 .photo-footer {
-    width: 100%;
-    display: flex;
+    margin-top: 10px;
+    text-align: center;
+    color: #d4a76b;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
-.photo-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 10px;
-    box-sizing: border-box;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+/* Scrollbar personalizado (opcional) */
+.photos-section::-webkit-scrollbar {
+    height: 8px;
 }
 
-.photo-item:hover .photo-overlay {
-    opacity: 1;
+.photos-section::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
 }
 
-.photo-username {
-    color: #F2389E;
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-}
-
-.photo-description {
-    color: #FFF;
-    font-size: 1.2rem;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-    word-wrap: break-word;
+.photos-section::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
 }

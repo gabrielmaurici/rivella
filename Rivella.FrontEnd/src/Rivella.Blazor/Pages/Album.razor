@@ -1,5 +1,6 @@
 @page "/album/{code:guid}"
 
+@using System.Runtime.InteropServices.JavaScript
 @using System.Timers
 @using Rivella.Blazor.Components.UploadPhotoModal
 @using Rivella.Blazor.Services.Album.GetAlbum
@@ -25,19 +26,20 @@ else
         {
             <div class="album-container">
                 <h1 class="album-title">@AlbumModel!.Name</h1>
-                <p class="album-description">@AlbumModel.Name</p>
+                @* <p class="album-description">@AlbumModel.Name</p> *@
 
                 <div class="qrcode-section" style="@(IsAlbumRevealed ? "display: none;" : "")">
                     <img src="@QRCodeUrl" alt="QR Code" class="qrcode"/>
                 </div>
 
                 <div class="countdown-section">
-                    <p>Contagem Regressiva</p>
+                    <p>Fotos enviadas: @AlbumModel.Photos.Count</p>
+                    <p>Contagem regressiva revelação</p>
                     <div class="countdown-timer">@Countdown</div>
                 </div>
 
                 <div class="photo-section">
-                    <label for="cameraInput" class="btn">Enviar memórias</label>
+                    <label for="cameraInput" class="btn">Enviar foto</label>
                     <InputFile id="cameraInput" accept="image/*" capture="user" OnChange="ProcessPhoto" style="display: none"/>
                 </div>
 
@@ -80,8 +82,10 @@ else
         try
         {
             AlbumModel = await GetAlbumService.GetAsync(Code);
+            Console.WriteLine(DateTime.Now);
+            Console.WriteLine(AlbumModel.RevelationDate);
 
-            if (DateTime.Now >= AlbumModel.RevelationDate)
+            if (DateTime.UtcNow >= AlbumModel.RevelationDate.ToLocalTime())
             {
                 IsAlbumRevealed = true;
             }
@@ -104,10 +108,13 @@ else
 
     private void UpdateCountdown(object sender, ElapsedEventArgs e)
     {
-        var remainingTime = AlbumModel!.RevelationDate - DateTime.Now;
+        var remainingTime = AlbumModel!.RevelationDate - DateTime.UtcNow;
+    
 
-        if (remainingTime.TotalSeconds <= 0)
+        
+        if (DateTime.Now >= AlbumModel.RevelationDate)
         {
+            
             CountdownTimer.Stop();
             IsAlbumRevealed = true;
         }

@@ -6,6 +6,22 @@ body {
     color: #48358C;
 }
 
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center; /* Alinha o texto centralizado */
+    background-color: #cdac53; /* Cor de fundo (opcional) */
+    color: #e3e8e7;
+}
+
+.loading p {
+    font-size: 1.5rem; /* Tamanho da fonte */
+    color: #333; /* Cor do texto */
+    font-weight: bold; /* Deixa o texto mais chamativo */
+}
+
 .main-container {
     height: 100vh;
     width: 100vw;
