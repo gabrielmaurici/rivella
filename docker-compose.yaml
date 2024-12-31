@@ -1,6 +1,9 @@
 version: '3.8'
 
 services:
+  # api:
+  
+
   postgres-rivella:
     image: postgres:latest
     container_name: postgres-container
@@ -12,4 +15,4 @@ services:
       - "5432:5432"
     volumes:
       - ./.docker/mysql:/var/lib/mysql
-      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./Rivella.BackEnd/sql/init.sql:/docker-entrypoint-initdb.d/init.sql

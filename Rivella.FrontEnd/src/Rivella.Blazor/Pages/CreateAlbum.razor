@@ -6,7 +6,7 @@
 @inject NavigationManager NavigationManager
 @inject ICreateAlbumService CreateAlbumService
 
-<div class="container">
+<div class="main-container">
     <div class="create-album-container">
         <h2>Criação de Álbum</h2>
         <p>Preencha os campos abaixo para criar seu álbum e definir a data de revelação.</p>
@@ -22,8 +22,11 @@
 
             <div class="form-group">
                 <label for="revelationDate">Data de Revelação</label>
-                <InputDate Type="InputDateType.DateTimeLocal"
-                           min="@DateTime.Today.ToString("dd-MM-yyyy")" @bind-Value="@_albumModel.RevelationDate"
+                <InputDate 
+                    class="form-control"
+                    Type="InputDateType.DateTimeLocal"
+                    min="@DateTime.Today.ToString("dd-MM-yyyy")"
+                    @bind-Value="@_albumModel.RevelationDate"
                 />
             </div>
 

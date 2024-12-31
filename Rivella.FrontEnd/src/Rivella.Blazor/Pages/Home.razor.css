@@ -7,12 +7,12 @@
 }
 
 h2 {
-    color: #69188C;    
+    color: #171515;    
 }
 
 .hero-section {
     width: 100vw;
-    background: linear-gradient(146deg, #69188C 20%, #F2389E);
+    background: #cdac53 ;
     padding: 3rem 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -20,7 +20,7 @@ h2 {
 .site-title {
     font-size: 3rem;
     font-weight: bold;
-    color: #e3e8e7;
+    color: #171515;
 }
 
 .tagline {
@@ -36,8 +36,8 @@ h2 {
 }
 
 .btn-primary {
-    background-color: #56BFA1;
-    color: white;
+    background-color: #171515;
+    color: #e3e8e7;
     border: none;
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
@@ -48,15 +48,21 @@ h2 {
 }
 
 .btn-primary:hover {
-    background-color: #69188C; 
-    transform: translateY(-3px);
+    background-color: #e3e8e7; 
+    color: #171515;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.image-section {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
 }
 
 .features-section {
     max-width: 800px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 0 2rem 2rem;
     text-align: center;
 }
 
@@ -85,7 +91,7 @@ h2 {
 .feature-item h3 {
     margin: 0.5rem 0;
     font-size: 1.2rem;
-    color: #F2389E;
+    color: #cdac53;
 }
 
 .feature-item p {

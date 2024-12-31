@@ -1,23 +1,25 @@
-.container {
+.main-container {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #cdac53;
 }
 
 .create-album-container {
-    width: 100%;
+    width: 100vw;
     max-width: 600px;
     background-color: #F2F2F2;
     padding: 2rem;
+    margin: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .create-album-container h2 {
     text-align: center;
-    color: #69188C;
+    color: #171515;
 }
 
 .create-album-container p {
@@ -33,7 +35,7 @@
 .form-group label {
     display: block;
     font-weight: bold;
-    color: #F2389E;
+    color: #cdac53;
     margin-bottom: 0.5rem;
 }
 
@@ -46,8 +48,8 @@
 }
 
 .btn-primary {
-    background-color: #56BFA1;
-    color: white;
+    background-color: #171515;
+    color: #e3e8e7;
     border: none;
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
@@ -58,7 +60,6 @@
 }
 
 .btn-primary:hover {
-    background-color: #69188C;
-    transform: translateY(-3px);
+    background-color: #cdac53;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
