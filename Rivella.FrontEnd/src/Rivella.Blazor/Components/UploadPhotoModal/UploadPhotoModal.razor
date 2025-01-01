@@ -34,8 +34,7 @@
     [Parameter] public string? PhotoPreview { get; set; }
     [Parameter] public IBrowserFile? Image { get; set; }
     [Parameter] public bool IsVisible { get; set; }
-    [Parameter] public EventCallback<bool> OnConfirm { get; set; }
-    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
 
     private string? PhotoTaker { get; set; }
     private string? PhotoCaption { get; set; }
@@ -48,8 +47,8 @@
             if (Image == null)
                 return;
 
-            IsLoading = true; // Exibe o loading
-
+            IsLoading = true;
+            
             var upload = new UploadPhotoModel(
                 AlbumId,
                 PhotoTaker,
@@ -57,12 +56,14 @@
                 Image!
             );
             await UploadPhotoService.UploadAsync(upload);
-            await OnConfirm.InvokeAsync(true);
+            await OnClose.InvokeAsync(true);
             await JsRuntime.InvokeVoidAsync("alert", "Foto enviada com sucesso!");
         }
         catch (Exception ex)
         {
-            await JsRuntime.InvokeVoidAsync("alert", $"Erro ao gravar foto: {ex.Message}");
+            var erro = $"Erro ao gravar foto: {ex.Message}";
+            Console.WriteLine(erro);
+            await JsRuntime.InvokeVoidAsync("alert", erro);
         }
         finally
         {
@@ -72,6 +73,6 @@
 
     private void Cancel()
     {
-        OnCancel.InvokeAsync();
+        OnClose.InvokeAsync();
     }
 }

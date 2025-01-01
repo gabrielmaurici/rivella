@@ -6,48 +6,66 @@
 @inject NavigationManager NavigationManager
 @inject ICreateAlbumService CreateAlbumService
 
-<div class="main-container">
-    <div class="create-album-container">
-        <h2>Criação de Álbum</h2>
-        <p>Preencha os campos abaixo para criar seu álbum e definir a data de revelação.</p>
-
-        <EditForm Model="@_albumModel" OnValidSubmit="HandleSubmit">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-
-            <div class="form-group">
-                <label for="albumName">Nome do Álbum</label>
-                <InputText id="albumName" class="form-control" @bind-Value="_albumModel.Name" />
-            </div>
-
-            <div class="form-group">
-                <label for="revelationDate">Data de Revelação</label>
-                <InputDate 
-                    class="form-control"
-                    Type="InputDateType.DateTimeLocal"
-                    min="@DateTime.Today.ToString("dd-MM-yyyy")"
-                    @bind-Value="@_albumModel.RevelationDate"
-                />
-            </div>
-
-            <button type="submit" class="btn-primary">Criar Álbum</button>
-        </EditForm>
+@if (!IsLoaded)
+{
+    <div class="loading">
+        <p>Criando álbum...</p>
     </div>
-</div>
+} 
+else
+{
+    <div class="main-container">
+        <div class="create-album-container">
+            <h2>Criação de Álbum</h2>
+            <p>Preencha os campos abaixo para criar seu álbum e definir a data de revelação.</p>
+
+            <EditForm Model="@_albumModel" OnValidSubmit="HandleSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="albumName">Nome do Álbum</label>
+                    <InputText id="albumName" class="form-control" @bind-Value="_albumModel.Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="revelationDate">Data de Revelação</label>
+                    <InputDate 
+                        id="revelationDate"
+                        class="form-control"
+                        Type="InputDateType.DateTimeLocal"
+                        min="@DateTime.Today.ToString("dd-MM-yyyy")"
+                        @bind-Value="@_albumModel.RevelationDate"
+                    />
+                </div>
+
+                <button type="submit" class="btn-primary">Criar Álbum</button>
+            </EditForm>
+        </div>
+    </div>
+}
 
 @code {
     private readonly CreateAlbumModel _albumModel = new();
+    private bool IsLoaded { get; set; }
     
     private async Task HandleSubmit()
     {
         try
         {
+            IsLoaded = true;
             var result = await CreateAlbumService.CreateAsync(_albumModel);
             NavigationManager.NavigateTo($"/album/{result.Code}");
         }
         catch (Exception ex)
         {
-            await JsRuntime.InvokeVoidAsync("alert", $"Erro ao criar álbum: {ex.Message}");
+            var erro = $"Erro ao criar álbum: {ex.Message}";
+            Console.WriteLine(erro);
+            await JsRuntime.InvokeVoidAsync("alert", erro);
+        }
+        finally
+        {
+            IsLoaded = false;
         }
     }
 }
