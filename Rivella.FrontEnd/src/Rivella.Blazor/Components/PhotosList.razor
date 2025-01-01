@@ -1,17 +1,30 @@
-<div class="photos-section">
-    <div class="photos-list">
+<div class="photos-carousel" @ontouchstart="StartDrag" @ontouchend="EndDrag" @ontouchmove="OnDragMove">
+    <button class="carousel-button prev-button" @onclick="ShowPreviousPhoto">❮</button>
+    <div class="carousel-wrapper">
+        <div class="carousel-track" style="transform: translateX(@($"-{CurrentIndex * 100}%"))">
+            @if (AlbumModel != null)
+            {
+                foreach (var photo in AlbumModel.Photos.OrderBy(p => p.DateUpload))
+                {
+                    <div class="carousel-slide">
+                        <img src="@photo.Url" alt="Foto de @photo.UserName" class="photo-image" />
+                        <div class="photo-footer">
+                            <span>@photo.UserName</span>
+                            <span>@photo.Description</span>
+                            <p>@photo.DateUpload</p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <button class="carousel-button next-button" @onclick="ShowNextPhoto">❯</button>
+    <div class="carousel-indicators">
         @if (AlbumModel != null)
         {
-            foreach (var photo in AlbumModel.Photos.OrderBy(p => p.DateUpload))
+            for (int i = 0; i < AlbumModel.Photos.Count; i++)
             {
-                <div class="photo-item">
-                    <img src="@photo.Url" alt="Foto de @photo.UserName" class="photo-image" />
-                    <div class="photo-footer">
-                        <span>@photo.UserName</span>
-                        <span>@photo.Description</span>
-                        <p>@photo.DateUpload</p>
-                    </div>
-                </div>
+                <span class="indicator @(i == CurrentIndex ? "active" : "")"></span>
             }
         }
     </div>
@@ -20,4 +33,55 @@
 @code {
     [Parameter]
     public AlbumResponseModel? AlbumModel { get; set; }
+
+    private int CurrentIndex { get; set; } = 0;
+    private double StartX { get; set; }
+    private bool IsDragging { get; set; }
+
+    private void ShowNextPhoto()
+    {
+        if (AlbumModel != null && CurrentIndex < AlbumModel.Photos.Count - 1)
+        {
+            CurrentIndex++;
+        }
+    }
+
+    private void ShowPreviousPhoto()
+    {
+        if (AlbumModel != null && CurrentIndex > 0)
+        {
+            CurrentIndex--;
+        }
+    }
+
+    private void StartDrag(TouchEventArgs e)
+    {
+        IsDragging = true;
+        StartX = e.Touches[0].ClientX;
+    }
+
+    private void OnDragMove(TouchEventArgs e)
+    {
+        if (!IsDragging) 
+            return;
+        
+        var diff = StartX - e.Touches[0].ClientX;
+        if (!(Math.Abs(diff) > 50))
+            return;
+        
+        if (diff > 0)
+        {
+            ShowNextPhoto();
+        }
+        else
+        {
+            ShowPreviousPhoto();
+        }
+        IsDragging = false;
+    }
+
+    private void EndDrag(TouchEventArgs e)
+    {
+        IsDragging = false;
+    }
 }
