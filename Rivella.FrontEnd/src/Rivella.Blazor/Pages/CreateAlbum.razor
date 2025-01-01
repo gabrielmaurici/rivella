@@ -47,7 +47,7 @@ else
 
 @code {
     private readonly CreateAlbumModel _albumModel = new();
-    private bool IsLoaded { get; set; }
+    private bool IsLoaded { get; set; } = true;
     
     private async Task HandleSubmit()
     {
