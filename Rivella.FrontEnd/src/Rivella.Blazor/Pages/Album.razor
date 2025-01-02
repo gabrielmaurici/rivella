@@ -80,6 +80,8 @@ else
         try
         {
             AlbumModel = await GetAlbumService.GetAsync(Code);
+            Console.WriteLine("data base " + AlbumModel.RevelationDate);
+            Console.WriteLine("data app " + DateTime.Now);
             if (DateTime.Now >= AlbumModel.RevelationDate)
             {
                 IsAlbumRevealed = true;

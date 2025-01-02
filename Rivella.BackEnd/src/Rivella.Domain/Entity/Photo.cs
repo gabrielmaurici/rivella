@@ -3,7 +3,7 @@ using Rivella.Domain.SeedWork;
 
 namespace Rivella.Domain.Entity;
 
-public class Photo : Entity<int>
+public sealed class Photo : Entity<int>
 {
     public Photo(int albumId, string url, string? userName, string? description, int id = 0) : base(id)
     {
@@ -21,7 +21,7 @@ public class Photo : Entity<int>
     public string? UserName { get; private set; }
     public string? Description { get; private set; }
     public DateTime DateUpload { get; private set; }
-    public virtual Album Album { get; private set; }
+    public Album? Album { get; private set; }
     
     private void Validate()
     {

@@ -2,7 +2,7 @@ using Rivella.Domain.SeedWork;
 
 namespace Rivella.Domain.Entity;
 
-public class Album : AggregateRoot<int>
+public sealed class Album : AggregateRoot<int>
 {
     public Album(string name, DateTime revelationDate, int id = 0) : base(id)
     {
@@ -18,7 +18,7 @@ public class Album : AggregateRoot<int>
     public string Name { get; private set; }
     public DateTime RevelationDate { get; private set; }
     public DateTime DateCreated { get; private set; }
-    public virtual List<Photo> Photos { get; private set; } = [];
+    public List<Photo> Photos { get; private set; } = [];
     
     private void Validate()
     {

@@ -53,7 +53,7 @@ else
     {
         try
         {
-            IsLoaded = true;
+            IsLoaded = false;
             var result = await CreateAlbumService.CreateAsync(_albumModel);
             NavigationManager.NavigateTo($"/album/{result.Code}");
         }
@@ -65,7 +65,7 @@ else
         }
         finally
         {
-            IsLoaded = false;
+            IsLoaded = true;
         }
     }
 }
