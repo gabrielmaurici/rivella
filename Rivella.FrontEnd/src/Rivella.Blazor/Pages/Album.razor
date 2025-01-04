@@ -5,6 +5,7 @@
 @using Rivella.Blazor.Components.UploadPhotoModal
 @using Rivella.Blazor.Services.Album.GetAlbum
 @using Rivella.Blazor.Components
+@using Rivella.Blazor.Models.Photo
 
 @inject IToastService ToastService
 @inject IGetAlbumService GetAlbumService
@@ -32,7 +33,7 @@ else
                 </div>
 
                 <div class="countdown-section">
-                    <p>Memórias enviadas: @AlbumModel.Photos.Count</p>
+                    <p>Memórias enviadas: @PhotoCount</p>
                     <p>Contagem regressiva revelação</p>
                     <div class="countdown-timer">@Countdown</div>
                 </div>
@@ -66,6 +67,7 @@ else
 
     const int MaxFileSize = 5 * 1024 * 1024;
     private AlbumResponseModel? AlbumModel { get; set; }
+    private int PhotoCount { get; set; }
     private string? Countdown { get; set; }
     private Timer CountdownTimer { get; set; } = null!;
     private string? PhotoPreview { get; set; }
@@ -77,6 +79,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         await GetAlbumAsync();
+        PhotoCount = (AlbumModel?.Photos.Count).GetValueOrDefault();
         IsLoaded = true;
         
         if (DateTime.Now >= AlbumModel?.RevelationDate)
@@ -149,8 +152,11 @@ else
         }
     }
 
-    private void HandleClose()
+    private void HandleClose(PhotoSentModel model)
     {
+        if (model.OneMorePhotoSent)
+            PhotoCount++;
+        
         IsModalVisible = false;
     }
 }

@@ -21,7 +21,7 @@
         
         @if (IsLoading)
         {
-            <div class="loading">Enviable foto...</div>
+            <div class="loading">Enviando memória ...</div>
         }
 
         <button class="btn" @onclick="Confirm" disabled="@(IsLoading)">Confirmar Envio</button>
@@ -34,7 +34,7 @@
     [Parameter] public string? PhotoPreview { get; set; }
     [Parameter] public IBrowserFile? Image { get; set; }
     [Parameter] public bool IsVisible { get; set; }
-    [Parameter] public EventCallback OnClose { get; set; }
+    [Parameter] public EventCallback<PhotoSentModel> OnClose { get; set; }
 
     private string? UserName { get; set; }
     private string? Description { get; set; }
@@ -56,7 +56,7 @@
                 Image!
             );
             await UploadPhotoService.UploadAsync(upload);
-            await OnClose.InvokeAsync(true);
+            await OnClose.InvokeAsync(new PhotoSentModel(OneMorePhotoSent: true));
             ToastService.ShowSuccess("Memória enviada com sucesso");
         }
         catch (Exception ex)
@@ -71,6 +71,6 @@
 
     private void Cancel()
     {
-        OnClose.InvokeAsync();
+        OnClose.InvokeAsync(new PhotoSentModel(OneMorePhotoSent: false));
     }
 }
