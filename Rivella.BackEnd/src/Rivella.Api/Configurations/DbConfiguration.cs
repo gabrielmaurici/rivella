@@ -8,7 +8,6 @@ public static class DbConfiguration
     public static IServiceCollection AddDbConnection(this IServiceCollection services)
     {
         var connectionString = Environment.GetEnvironmentVariable("RivellaDb");
-        Console.WriteLine("teste " + connectionString);
         services.AddDbContext<RivellaContext>(options => options.UseNpgsql(
             connectionString
         ));
