@@ -1,3 +1,4 @@
+using Blazored.Toast;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Rivella.Blazor;
@@ -22,6 +23,7 @@ builder.Services.AddHttpClient<IRivellaApiService, RivellaApiService>("rivella-a
 {
     client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("rivella-api")!);
 });
+builder.Services.AddBlazoredToast();
 
 builder.Services.AddTransient<IRivellaApiService, RivellaApiService>();
 builder.Services.AddTransient<ICreateAlbumService, CreateAlbumService>();

@@ -1,12 +1,14 @@
 @page "/album/{code:guid}"
 
 @using System.Timers
+@using Blazored.Toast.Services
 @using Rivella.Blazor.Components.UploadPhotoModal
 @using Rivella.Blazor.Services.Album.GetAlbum
 @using Rivella.Blazor.Components
 
-@inject IJSRuntime JsRuntime
+@inject IToastService ToastService
 @inject IGetAlbumService GetAlbumService
+
 
 @if (!IsLoaded)
 {
@@ -38,7 +40,7 @@ else
                 </div>
 
                 <div class="photo-section">
-                    <label for="cameraInput" class="btn">Enviar foto</label>
+                    <label for="cameraInput" class="btn">Enviar memória</label>
                     <InputFile id="cameraInput" accept="image/*" capture="user" OnChange="ProcessPhoto" style="display: none"/>
                 </div>
 
@@ -84,7 +86,6 @@ else
         try
         {
             AlbumModel = await GetAlbumService.GetAsync(Code);
-            Console.WriteLine(AlbumModel.QrCode);
             if (DateTime.Now >= AlbumModel.RevelationDate)
             {
                 IsAlbumRevealed = true;
@@ -95,10 +96,12 @@ else
                 CountdownTimer.Elapsed += UpdateCountdown!;
                 CountdownTimer.Start();
             }
+            
+            ToastService.ShowSuccess("Álbum obtido com sucesso");
         }
         catch (Exception ex)
         {
-            await JsRuntime.InvokeVoidAsync("alert", $"Erro ao buscar álbum: {ex.Message}");
+            ToastService.ShowError($"Erro ao buscar álbum: {ex.Message}");
         }
         finally
         {
@@ -142,9 +145,7 @@ else
         }
         catch (Exception ex)
         {
-            var erro = $"Erro ao processar a foto: {ex.Message}";
-            Console.WriteLine(erro);
-            await JsRuntime.InvokeVoidAsync("alert", erro);
+            ToastService.ShowError($"Erro ao processar foto: {ex.Message}");
         }
     }
 

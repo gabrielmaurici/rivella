@@ -1,7 +1,7 @@
 @using Rivella.Blazor.Models.Photo
 @using Rivella.Blazor.Services.Album.UploadPhoto
 
-@inject IJSRuntime JsRuntime
+@inject IToastService ToastService
 @inject IUploadPhotoService UploadPhotoService
 
 <div class="modal-overlay" style="display: @(IsVisible ? "flex" : "none")">
@@ -9,11 +9,11 @@
         <h3>Detalhes da Foto</h3>
         <div>
             <label for="photoTaker">Foto tirada por:</label>
-            <input id="photoTaker" type="text" @bind="PhotoTaker" placeholder="Nome do fotógrafo" />
+            <input id="photoTaker" type="text" @bind="UserName" placeholder="Nome do fotógrafo" />
         </div>
         <div>
             <label for="photoCaption">Legenda:</label>
-            <input id="photoCaption" type="text" @bind="PhotoCaption" placeholder="Escreva uma legenda" />
+            <input id="photoCaption" type="text" @bind="Description" placeholder="Escreva uma legenda" />
         </div>
         <div class="preview">
             <img src="@PhotoPreview" alt="Pré-visualização da foto" class="photo-preview" />
@@ -36,8 +36,8 @@
     [Parameter] public bool IsVisible { get; set; }
     [Parameter] public EventCallback OnClose { get; set; }
 
-    private string? PhotoTaker { get; set; }
-    private string? PhotoCaption { get; set; }
+    private string? UserName { get; set; }
+    private string? Description { get; set; }
     private bool IsLoading { get; set; } = false;
 
     private async Task Confirm()
@@ -45,25 +45,23 @@
         try
         {
             if (Image == null)
-                return;
+                throw new Exception("Imagem não encontrada");
 
             IsLoading = true;
             
             var upload = new UploadPhotoModel(
                 AlbumId,
-                PhotoTaker,
-                PhotoCaption,
+                UserName,
+                Description,
                 Image!
             );
             await UploadPhotoService.UploadAsync(upload);
             await OnClose.InvokeAsync(true);
-            await JsRuntime.InvokeVoidAsync("alert", "Foto enviada com sucesso!");
+            ToastService.ShowSuccess("Memória enviada com sucesso");
         }
         catch (Exception ex)
         {
-            var erro = $"Erro ao gravar foto: {ex.Message}";
-            Console.WriteLine(erro);
-            await JsRuntime.InvokeVoidAsync("alert", erro);
+            ToastService.ShowError($"Erro ao gravar memória: {ex.Message}");
         }
         finally
         {

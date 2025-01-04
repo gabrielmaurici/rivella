@@ -2,7 +2,7 @@
 
 @using Rivella.Blazor.Services.Album.CreateAlbum
 
-@inject IJSRuntime JsRuntime
+@inject IToastService ToastService
 @inject NavigationManager NavigationManager
 @inject ICreateAlbumService CreateAlbumService
 
@@ -16,7 +16,7 @@ else
 {
     <div class="main-container">
         <div class="create-album-container">
-            <h2>Criação de Álbum</h2>
+            <h2>Criação do Álbum</h2>
             <p>Preencha os campos abaixo para criar seu álbum e definir a data de revelação.</p>
 
             <EditForm Model="@_albumModel" OnValidSubmit="HandleSubmit">
@@ -29,7 +29,7 @@ else
                 </div>
 
                 <div class="form-group">
-                    <label for="revelationDate">Data de Revelação</label>
+                    <label for="revelationDate">Data e horário da Revelação</label>
                     <InputDate 
                         id="revelationDate"
                         class="form-control"
@@ -56,12 +56,11 @@ else
             IsLoaded = false;
             var result = await CreateAlbumService.CreateAsync(_albumModel);
             NavigationManager.NavigateTo($"/album/{result.Code}");
+            ToastService.ShowSuccess("Álbum criado com sucesso");
         }
         catch (Exception ex)
         {
-            var erro = $"Erro ao criar álbum: {ex.Message}";
-            Console.WriteLine(erro);
-            await JsRuntime.InvokeVoidAsync("alert", erro);
+            ToastService.ShowError($"Erro ao criar álbum: {ex.Message}");
         }
         finally
         {
