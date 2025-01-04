@@ -1,11 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #F2F2F2;
-    color: #48358C;
-}
-
 .loading {
     display: flex;
     justify-content: center;
@@ -19,7 +11,7 @@ body {
 }
 
 .main-container {
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     background-color: #cdac53;
     display: flex;
@@ -35,10 +27,8 @@ body {
 }
 
 .album-container {
-    height: 80vh;
     width: 90vw;
     max-width: 800px;
-    margin: 2rem 0;
     padding: 20px;
     text-align: center;
     background-color: #e3e8e7;
@@ -48,7 +38,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 2px solid #171515;
 }
 
 .album-title {
@@ -58,7 +47,6 @@ body {
 }
 
 .qrcode-section {
-    margin: 20px 0;
 }
 
 .qrcode {
@@ -75,29 +63,6 @@ body {
     color: #cdac53;
 }
 
-
-.camera-view {
-    width: 100%;
-    max-width: 300px;
-    border: 2px solid #69188C;
-    border-radius: 5px;
-}
-
-.snapshot {
-    margin-top: 10px;
-    width: 100%;
-    max-width: 300px;
-    border: 2px solid #56BFA1;
-    border-radius: 5px;
-}
-
-.album-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-
-
 .btn {
     background-color: #171515;
     color: #e3e8e7;
@@ -106,16 +71,10 @@ body {
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
-    margin-top: 1rem;
     transition: background-color 0.3s ease;
 }
 
 .btn:hover {
     background-color: #cdac53;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Quando o modal é exibido, a sobreposição de fundo escuro deve ser visível */
-.modal-overlay {
-    display: flex; /* Torna o modal visível */
 }

@@ -3,6 +3,11 @@ html, body {
     padding: 0;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background: #F2F2F2;
+    height: 100%;
+}
+
+#app {
+    height: 100%;
 }
 
 h1:focus {
@@ -85,7 +90,7 @@ a, .btn-link {
     }
 
         .loading-progress circle:last-child {
-            stroke: #1b6ec2;
+            stroke: #cdac53;
             stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
             transition: stroke-dasharray 0.05s ease-in-out;
         }
