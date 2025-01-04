@@ -1,5 +1,5 @@
 using Rivella.Application.Interfaces;
-using Rivella.Application.UseCases.Album;
+using Rivella.Application.UseCases.Album.GetAlbum;
 using Rivella.Application.UseCases.Album.CreateAlbum;
 using Rivella.Application.UseCases.Photo.UploadPhoto;
 using Rivella.Domain.Repository;

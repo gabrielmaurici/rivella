@@ -1,7 +1,7 @@
 using Rivella.Application.UseCases.Album.Common;
 using Rivella.Domain.Repository;
 
-namespace Rivella.Application.UseCases.Album.CreateAlbum;
+namespace Rivella.Application.UseCases.Album.GetAlbum;
 
 public class GetAlbum(IAlbumRepository albumRepository) : IGetAlbum
 {

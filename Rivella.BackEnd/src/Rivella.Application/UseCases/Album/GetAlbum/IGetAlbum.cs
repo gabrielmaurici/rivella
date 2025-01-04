@@ -1,6 +1,6 @@
 using Rivella.Application.UseCases.Album.Common;
 
-namespace Rivella.Application.UseCases.Album;
+namespace Rivella.Application.UseCases.Album.GetAlbum;
 
 public interface IGetAlbum
 {

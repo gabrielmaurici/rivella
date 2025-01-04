@@ -1,4 +1,4 @@
-using Rivella.Application.UseCases.Album;
+using Rivella.Application.UseCases.Album.GetAlbum;
 using Rivella.Application.UseCases.Album.Common;
 using Rivella.Application.UseCases.Album.CreateAlbum;
 
