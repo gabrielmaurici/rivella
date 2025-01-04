@@ -27,14 +27,12 @@ else
         {
             <div class="album-container">
                 <h1 class="album-title">@AlbumModel!.Name</h1>
-                @* <p class="album-description">@AlbumModel.Name</p> *@
-
                 <div class="qrcode-section" style="@(IsAlbumRevealed ? "display: none;" : "")">
                     <img src="data:image/png;base64,@AlbumModel.QrCode" alt="QR Code" class="qrcode"/>
                 </div>
 
                 <div class="countdown-section">
-                    <p>Fotos enviadas: @AlbumModel.Photos.Count</p>
+                    <p>Memórias enviadas: @AlbumModel.Photos.Count</p>
                     <p>Contagem regressiva revelação</p>
                     <div class="countdown-timer">@Countdown</div>
                 </div>
@@ -78,34 +76,31 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await GetAlbumAndUpdateCountdownTimerAsync();
+        await GetAlbumAsync();
+        IsLoaded = true;
+        
+        if (DateTime.Now >= AlbumModel?.RevelationDate)
+        {
+            IsAlbumRevealed = true;
+        }
+        else
+        {
+            CountdownTimer = new Timer(1000);
+            CountdownTimer.Elapsed += UpdateCountdown!;
+            CountdownTimer.Start();
+        }
     }
 
-    private async Task GetAlbumAndUpdateCountdownTimerAsync()
+    private async Task GetAlbumAsync()
     {
         try
         {
             AlbumModel = await GetAlbumService.GetAsync(Code);
-            if (DateTime.Now >= AlbumModel.RevelationDate)
-            {
-                IsAlbumRevealed = true;
-            }
-            else
-            {
-                CountdownTimer = new Timer(1000);
-                CountdownTimer.Elapsed += UpdateCountdown!;
-                CountdownTimer.Start();
-            }
-            
             ToastService.ShowSuccess("Álbum obtido com sucesso");
         }
         catch (Exception ex)
         {
             ToastService.ShowError($"Erro ao buscar álbum: {ex.Message}");
-        }
-        finally
-        {
-            IsLoaded = true;
         }
     }
 
@@ -115,7 +110,12 @@ else
         if (remainingTime.TotalSeconds <= 0)
         {
             CountdownTimer.Stop();
-            IsAlbumRevealed = true;
+            _ = InvokeAsync(async () =>
+            {
+                await GetAlbumAsync();
+                IsAlbumRevealed = true;
+                StateHasChanged();
+            });
         }
         else
         {

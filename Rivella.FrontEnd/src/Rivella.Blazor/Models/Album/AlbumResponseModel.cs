@@ -9,7 +9,7 @@ public record AlbumResponseModel(
     List<PhotoOutput> Photos
 );
 
-public abstract record PhotoOutput(
+public record PhotoOutput(
     string? UserName,
     string? Description,
     string Url,
