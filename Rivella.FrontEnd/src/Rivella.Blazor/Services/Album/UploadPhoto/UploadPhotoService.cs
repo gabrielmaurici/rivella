@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net.Http.Headers;
 using Rivella.Blazor.Models.Photo;
 using Rivella.Blazor.Services.RivellaApi;
@@ -7,12 +8,14 @@ namespace Rivella.Blazor.Services.Album.UploadPhoto;
 public class UploadPhotoService(IRivellaApiService rivellaApiService) : IUploadPhotoService
 {
     private const int MaxFileSize = 5 * 1024 * 1024;
+    
     public async Task UploadAsync(UploadPhotoModel model)
     {
         using var content = new MultipartFormDataContent();
         content.Add(new StringContent(model.IdAlbum.ToString()), "IdAlbum");
         content.Add(new StringContent(model.UserName ?? string.Empty), "UserName");
         content.Add(new StringContent(model.Description ?? string.Empty), "Description");
+        content.Add(new StringContent(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")), "DateUpload");
         var stream =  model.Image.OpenReadStream(MaxFileSize);
         var fileContent = new StreamContent(stream);
         fileContent.Headers.ContentType = new MediaTypeHeaderValue(model.Image.ContentType);

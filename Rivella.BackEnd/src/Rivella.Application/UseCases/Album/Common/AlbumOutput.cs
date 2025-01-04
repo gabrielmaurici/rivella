@@ -6,6 +6,7 @@ public record AlbumOutput(
     int Id,
     Guid Code,
     string Name,
+    string QrCode,
     DateTime RevelationDate,
     List<PhotoOutput> Photos
 )
@@ -16,6 +17,7 @@ public record AlbumOutput(
             album.Id,
             album.Code,
             album.Name,
+            Convert.ToBase64String(album.QrCode),
             album.RevelationDate,
             album.Photos.Select(photo => 
                 new PhotoOutput(

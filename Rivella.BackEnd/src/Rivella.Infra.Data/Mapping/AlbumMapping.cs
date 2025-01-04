@@ -22,6 +22,10 @@ public class AlbumMapping : IEntityTypeConfiguration<Album>
             .HasColumnName("name")
             .HasColumnType("varchar(100)");
         
+        builder.Property(x => x.QrCode)
+            .HasColumnName("qr_code")
+            .HasColumnType("bytea");
+        
         builder.Property(x => x.RevelationDate)
             .HasColumnName("revelation_date")
             .HasColumnType("timestamp");

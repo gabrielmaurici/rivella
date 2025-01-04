@@ -11,15 +11,11 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    text-align: center; /* Alinha o texto centralizado */
-    background-color: #cdac53; /* Cor de fundo (opcional) */
-    color: #e3e8e7;
-}
-
-.loading p {
-    font-size: 1.5rem; /* Tamanho da fonte */
-    color: #333; /* Cor do texto */
-    font-weight: bold; /* Deixa o texto mais chamativo */
+    text-align: center;
+    background-color: #cdac53;
+    font-size: 1.5rem;
+    color: #171515;
+    font-weight: bold;
 }
 
 .main-container {
@@ -45,7 +41,7 @@ body {
     margin: 2rem 0;
     padding: 20px;
     text-align: center;
-    background-color: #FFF;
+    background-color: #e3e8e7;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;

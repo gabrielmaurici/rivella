@@ -21,7 +21,8 @@ public class UploadPhoto(
             album.Id,
             photoUrl,
             input.UserName,
-            input.Description
+            input.Description,
+            input.UploadDate
         );
         
         await photoRepository.InsertAsync(photo);

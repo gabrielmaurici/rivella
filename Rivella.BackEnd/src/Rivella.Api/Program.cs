@@ -11,13 +11,15 @@ builder.Services.AddUseCases();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var rivellaFrontEnd = Environment.GetEnvironmentVariable("rivella-front-end") ??
+                      throw new InvalidOperationException("rivella-front-end não encontrado");
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(config =>
         config
             .WithOrigins(
                 "https://localhost:7278",
-                "https://rivellas.onrender.com"
+                rivellaFrontEnd
             )
             .AllowAnyMethod()
             .AllowAnyHeader());

@@ -24,7 +24,9 @@
     height: 100vh;
     text-align: center;
     background-color: #cdac53;
-    color: #e3e8e7;
+    font-size: 1.5rem;
+    color: #171515;
+    font-weight: bold;
 }
 
 .create-album-container h2 {
