@@ -4,27 +4,28 @@
 @inject IToastService ToastService
 @inject IUploadPhotoService UploadPhotoService
 
-<div class="modal-content" style="display: @(IsVisible ? "flex" : "none")">
-    <h3>Detalhes da Foto</h3>
-    <div class="form-container">
-        <label for="photoTaker">Foto tirada por:</label>
-        <input id="photoTaker" type="text" @bind="UserName" placeholder="Nome do fotógrafo" />
-    </div>
-    <div class="form-container">
-        <label for="photoCaption">Legenda:</label>
-        <input id="photoCaption" type="text" @bind="Description" placeholder="Escreva uma legenda" />
-    </div>
-    <div class="preview">
-        <img src="@PhotoPreview" alt="Pré-visualização da foto" class="photo-preview" />
-    </div>
-    
-    @if (IsLoading)
-    {
-        <div class="loading">Enviando memória ...</div>
-    }
+<div class="modal-overlay" style="display: @(IsVisible ? "flex" : "none")">
+    <div class="modal-content">
+        <div class="form-container">
+            <label for="photoTaker">Foto tirada por:</label>
+            <input id="photoTaker" type="text" @bind="UserName" placeholder="Nome do fotógrafo" />
+        </div>
+        <div class="form-container">
+            <label for="photoCaption">Legenda:</label>
+            <input id="photoCaption" type="text" @bind="Description" placeholder="Escreva uma legenda" />
+        </div>
+        <div class="preview">
+            <img src="@PhotoPreview" alt="Pré-visualização da foto" class="photo-preview" />
+        </div>
+        
+        @if (IsLoading)
+        {
+            <div class="loading">Enviando memória ...</div>
+        }
 
-    <button class="btn" @onclick="Confirm" disabled="@(IsLoading)">Confirmar Envio</button>
-    <button class="btn cancel" @onclick="Cancel" disabled="@(IsLoading)">Cancelar</button>
+        <button class="btn" @onclick="Confirm" disabled="@(IsLoading)">Confirmar Envio</button>
+        <button class="btn cancel" @onclick="Cancel" disabled="@(IsLoading)">Cancelar</button>
+    </div>
 </div>
 
 @code {

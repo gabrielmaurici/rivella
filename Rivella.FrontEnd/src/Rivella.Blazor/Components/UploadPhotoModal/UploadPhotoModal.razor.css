@@ -1,23 +1,27 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
 .modal-content {
     padding: 20px;
     max-width: 500px;
-    height: 100%;
-    width: 100%;
+    height: 90vh;
+    width: 90vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
+    overflow-y: auto;
     background: #F2F2F2;
-}
-
-h3 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    text-align: center;
 }
 
 .form-container {
@@ -50,7 +54,7 @@ input[type="text"] {
 
 .photo-preview {
     max-width: 100%;
-    max-height: 400px;
+    max-height: 300px;
     object-fit: contain;
 }
 
