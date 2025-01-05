@@ -8,6 +8,7 @@ builder.Services.AddDbConnection();
 builder.Services.AddStorageConfiguration();
 builder.Services.AddUseCases();
 
+builder.Services.AddHealthChecks();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -34,6 +35,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors();
+app.UseHealthChecks("/health");
 app.RegisterAlbumEndpoints();
 app.RegisterPhotoEndpoints();
 app.UseHttpsRedirection();
