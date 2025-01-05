@@ -21,7 +21,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: #e3e8e7;
+    background: #F2F2F2 ;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -45,7 +45,7 @@
     top: 50%;
     transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
+    color: #ced4da;
     border: none;
     border-radius: 50%;
     width: 40px;
