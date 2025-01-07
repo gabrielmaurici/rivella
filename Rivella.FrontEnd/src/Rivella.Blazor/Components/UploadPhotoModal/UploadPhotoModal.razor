@@ -20,7 +20,7 @@
         
         @if (IsLoading)
         {
-            <div class="loading">Enviando memória ...</div>
+            <div class="loading">Enviando Foto ...</div>
         }
 
         <button class="btn" @onclick="Confirm" disabled="@(IsLoading)">Confirmar Envio</button>
@@ -56,11 +56,11 @@
             );
             await UploadPhotoService.UploadAsync(upload);
             await OnClose.InvokeAsync(new PhotoSentModel(OneMorePhotoSent: true));
-            ToastService.ShowSuccess("Memória enviada com sucesso");
+            ToastService.ShowSuccess("Foto enviada com sucesso");
         }
         catch (Exception ex)
         {
-            ToastService.ShowError($"Erro ao gravar memória: {ex.Message}");
+            ToastService.ShowError($"Erro ao gravar foto: {ex.Message}");
         }
         finally
         {
