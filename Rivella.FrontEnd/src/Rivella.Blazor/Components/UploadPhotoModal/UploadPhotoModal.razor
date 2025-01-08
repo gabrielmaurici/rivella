@@ -6,16 +6,11 @@
 
 <div class="modal-overlay" style="display: @(IsVisible ? "flex" : "none")">
     <div class="modal-content">
-        <div class="form-container">
-            <label for="photoTaker">Foto tirada por:</label>
-            <input id="photoTaker" type="text" @bind="UserName" placeholder="Nome do fotógrafo" />
-        </div>
-        <div class="form-container">
-            <label for="photoCaption">Legenda:</label>
-            <input id="photoCaption" type="text" @bind="Description" placeholder="Escreva uma legenda" />
-        </div>
         <div class="preview">
             <img src="@PhotoPreview" alt="Pré-visualização da foto" class="photo-preview" />
+        </div>
+        <div class="form-container">
+            <input id="photoCaption" type="text" @bind="Description" placeholder="Escreva uma legenda" />
         </div>
         
         @if (IsLoading)
@@ -35,7 +30,6 @@
     [Parameter] public bool IsVisible { get; set; }
     [Parameter] public EventCallback<PhotoSentModel> OnClose { get; set; }
 
-    private string? UserName { get; set; }
     private string? Description { get; set; }
     private bool IsLoading { get; set; } = false;
 
@@ -50,7 +44,6 @@
             
             var upload = new UploadPhotoModel(
                 AlbumId,
-                UserName,
                 Description,
                 Image!
             );

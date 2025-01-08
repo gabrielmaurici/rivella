@@ -20,7 +20,6 @@ public class UploadPhoto(
         var photo = new Domain.Entity.Photo(
             album.Id,
             photoUrl,
-            input.UserName,
             input.Description,
             input.UploadDate
         );

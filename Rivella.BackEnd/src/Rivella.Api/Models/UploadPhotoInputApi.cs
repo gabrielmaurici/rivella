@@ -5,7 +5,6 @@ namespace Rivella.Api.Models;
 public class UploadPhotoInputApi
 {
     public int IdAlbum { get; set; }
-    public string? UserName { get; set; }
     public string? Description { get; set; }
     public DateTime DateUpload { get; set; }
     public IFormFile Image { get; set; } = null!;
@@ -21,6 +20,6 @@ public class UploadPhotoInputApi
         Image.CopyTo(memoryStream);
         memoryStream.Position = 0;
 
-        return new UploadPhotoInput(IdAlbum, UserName, Description, DateUpload, memoryStream);
+        return new UploadPhotoInput(IdAlbum, Description, DateUpload, memoryStream);
     }
 }

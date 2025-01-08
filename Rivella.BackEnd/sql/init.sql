@@ -20,7 +20,6 @@ CREATE TABLE IF NOT EXISTS Albums (
 CREATE TABLE IF NOT EXISTS Photos (
     id SERIAL PRIMARY KEY,
     url VARCHAR(200) NOT NULL,
-    user_name VARCHAR(100) NULL,
     date_upload TIMESTAMP NOT NULL,
     description VARCHAR(200) NULL,
     album_id INT NOT NULL,

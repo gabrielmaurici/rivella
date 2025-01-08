@@ -7,11 +7,10 @@
                 foreach (var photo in AlbumModel.Photos.OrderBy(p => p.DateUpload))
                 {
                     <div class="carousel-slide">
-                        <img src="@photo.Url" alt="Foto de @photo.UserName" class="photo-image" />
+                        <img src="@photo.Url" alt="Foto @photo.Description" class="photo-image" />
                         <div class="photo-footer">
-                            <span>@photo.UserName</span>
-                            <span>@photo.Description</span>
                             <p>@photo.DateUpload</p>
+                            <p>@photo.Description</p>
                         </div>
                     </div>
                 }

@@ -13,7 +13,6 @@ public class UploadPhotoService(IRivellaApiService rivellaApiService) : IUploadP
     {
         using var content = new MultipartFormDataContent();
         content.Add(new StringContent(model.IdAlbum.ToString()), "IdAlbum");
-        content.Add(new StringContent(model.UserName ?? string.Empty), "UserName");
         content.Add(new StringContent(model.Description ?? string.Empty), "Description");
         content.Add(new StringContent(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")), "DateUpload");
         var stream =  model.Image.OpenReadStream(MaxFileSize);

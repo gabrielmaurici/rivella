@@ -35,10 +35,15 @@
 }
 
 .photo-footer {
-    margin-top: 15px;
-    color: #d4a76b;
-    text-align: center;
+    margin: 1.5rem 0;
+    color: #bc8a5e;
+    text-align: left;
+    width: 100%;
 }
+
+.photo-footer p {
+    margin: 0;
+} 
 
 .carousel-button {
     position: absolute;

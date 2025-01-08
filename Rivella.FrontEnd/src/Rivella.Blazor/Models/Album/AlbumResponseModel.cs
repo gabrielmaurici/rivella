@@ -10,7 +10,6 @@ public record AlbumResponseModel(
 );
 
 public record PhotoOutput(
-    string? UserName,
     string? Description,
     string Url,
     DateTime DateUpload

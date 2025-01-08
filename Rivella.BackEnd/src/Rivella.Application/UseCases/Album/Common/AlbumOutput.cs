@@ -1,5 +1,3 @@
-using Rivella.Domain.Entity;
-
 namespace Rivella.Application.UseCases.Album.Common;
 
 public record AlbumOutput(
@@ -21,7 +19,6 @@ public record AlbumOutput(
             album.RevelationDate,
             album.Photos.Select(photo => 
                 new PhotoOutput(
-                    photo.UserName, 
                     photo.Description, 
                     photo.Url,
                     photo.DateUpload
@@ -32,7 +29,6 @@ public record AlbumOutput(
 }
 
 public record PhotoOutput(
-    string? UserName,
     string? Description,
     string Url,
     DateTime DateUpload

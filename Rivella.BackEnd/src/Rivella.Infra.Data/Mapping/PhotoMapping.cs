@@ -22,10 +22,6 @@ public class PhotoMapping : IEntityTypeConfiguration<Photo>
             .HasColumnName("url")
             .HasColumnType("varchar(200)");
         
-        builder.Property(p => p.UserName)
-            .HasColumnName("user_name")
-            .HasColumnType("varchar(100)");
-        
         builder.Property(p => p.Description)
             .HasColumnName("description")
             .HasColumnType("varchar(200)");
