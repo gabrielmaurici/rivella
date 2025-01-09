@@ -33,14 +33,14 @@ else
                 </div>
 
                 <div class="countdown-section">
-                    <p>Foto enviadas: @PhotoCount</p>
+                    <p>Fotos enviadas: @PhotoCount</p>
                     <p>Esse álbum será revelado em:</p>
                     <div class="countdown-timer">@Countdown</div>
                 </div>
 
                 <div class="photo-section">
                     <label for="cameraInput" class="btn">Enviar Foto 📸</label>
-                    <InputFile id="cameraInput" accept="image/*" capture="user" OnChange="ProcessPhoto" style="display: none"/>
+                    <InputFile id="cameraInput" accept="image/*" capture="environment" OnChange="ProcessPhoto" style="display: none"/>
                 </div>
 
                 <UploadPhotoModal
