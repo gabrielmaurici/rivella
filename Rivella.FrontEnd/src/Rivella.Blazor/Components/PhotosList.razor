@@ -21,10 +21,7 @@
     <div class="carousel-indicators">
         @if (AlbumModel != null)
         {
-            for (var i = 0; i < AlbumModel.Photos.Count; i++)
-            {
-                <span class="indicator @(i == CurrentIndex ? "active" : "")"></span>
-            }
+            <span>@(CurrentIndex + 1) de @AlbumModel.Photos.Count</span>
         }
     </div>
 </div>

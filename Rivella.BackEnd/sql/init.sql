@@ -24,4 +24,4 @@ CREATE TABLE IF NOT EXISTS Photos (
     description VARCHAR(200) NULL,
     album_id INT NOT NULL,
     CONSTRAINT fk_albumid_album_id FOREIGN KEY (album_id) REFERENCES Albums(Id) ON DELETE CASCADE
-    );
+);

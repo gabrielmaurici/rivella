@@ -37,7 +37,6 @@
 .photo-footer {
     margin: 1.5rem 0;
     color: #bc8a5e;
-    text-align: left;
     width: 100%;
 }
 
@@ -79,18 +78,8 @@
     justify-content: center;
     margin-top: 10px;
     gap: 10px;
-}
-
-.indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ccc;
-    transition: background-color 0.3s ease;
-}
-
-.indicator.active {
-    background-color: #d4a76b;
+    color: #9b9b9b;
+    font-size: 0.9rem;
 }
 
 @media (max-width: 768px) {
