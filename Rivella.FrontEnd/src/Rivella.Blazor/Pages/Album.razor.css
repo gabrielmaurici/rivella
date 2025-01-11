@@ -43,7 +43,7 @@
 .album-title {
     color: #cdac53;
     font-size: 2rem;
-    margin-bottom: 1.5rem;
+    margin: 1rem 0;
 }
 
 .qrcode-section {
@@ -60,11 +60,13 @@
 
 .countdown-section p {
     margin-bottom: 0.6rem;
+    color: #868686;
 }
 
 .countdown-timer {
     font-size: 1.5rem;
     color: #cdac53;
+    margin-bottom: 0.6rem;
 }
 
 .btn {

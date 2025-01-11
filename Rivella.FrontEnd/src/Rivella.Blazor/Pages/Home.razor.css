@@ -10,11 +10,19 @@ h2 {
     color: #171515;    
 }
 
+.hero-section-main {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    background: #cdac53;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .hero-section {
     width: 100vw;
-    background: #cdac53 ;
+    max-width: 800px;
+    background: #cdac53;
     padding: 3rem 2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .site-title {

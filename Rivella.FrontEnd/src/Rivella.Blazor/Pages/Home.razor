@@ -3,22 +3,24 @@
 @inject NavigationManager NavigationManager
 
 <div class="home-container">
-    <div class="hero-section">
-        <h1 class="site-title">rivella.</h1>
-        <p class="tagline">Suas memórias no tempo certo</p>
-        <p class="description">
-            No rivella, você cria álbuns com datas de revelação. Até lá, você e seus convidados
-            podem registrar fotos que irão permanecer guardadas, esperando o momento certo para serem reveladas.
-        </p>
-        <button class="btn-primary" @onclick="NavigateToCreateAlbum">
-            Criar Álbum
-        </button>
+    <div class="hero-section-main">
+        <div class="hero-section">
+            <h1 class="site-title">rivella.</h1>
+            <p class="tagline">Suas memórias no tempo certo</p>
+            <p class="description">
+                No rivella, você cria álbuns com datas de revelação. Até lá, você e seus convidados
+                podem registrar fotos que irão permanecer guardadas, esperando o momento certo para serem reveladas.
+            </p>
+            <button class="btn-primary" @onclick="NavigateToCreateAlbum">
+                Criar Álbum
+            </button>
+        </div>
     </div>
-    
+
     <div class="image-section">
-        <img src="images/selfie.png" alt="Descrição da imagem" style="max-width: 100%; height: auto;" />
+        <img src="images/selfie.png" alt="Descrição da imagem" style="max-width: 100%; height: auto;"/>
     </div>
-    
+
     <div class="features-section">
         <h2>Como funciona?</h2>
         <div class="features-grid">
