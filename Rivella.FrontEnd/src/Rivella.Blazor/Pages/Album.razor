@@ -1,7 +1,6 @@
 @page "/album/{code:guid}"
 
 @using System.Timers
-@using Blazored.Toast.Services
 @using Rivella.Blazor.Components.UploadPhotoModal
 @using Rivella.Blazor.Services.Album.GetAlbum
 @using Rivella.Blazor.Components
@@ -80,8 +79,6 @@ else
     {
         await GetAlbumAsync();
         PhotoCount = (AlbumModel?.Photos.Count).GetValueOrDefault();
-        IsLoaded = true;
-        
         if (DateTime.Now >= AlbumModel?.RevelationDate)
         {
             IsAlbumRevealed = true;
@@ -92,6 +89,7 @@ else
             CountdownTimer.Elapsed += UpdateCountdown!;
             CountdownTimer.Start();
         }
+        IsLoaded = true;
     }
 
     private async Task GetAlbumAsync()
