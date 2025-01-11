@@ -21,7 +21,7 @@
     <div class="carousel-indicators">
         @if (AlbumModel != null)
         {
-            <span>@(CurrentIndex + 1) de @AlbumModel.Photos.Count</span>
+            <span>@(CurrentIndex) de @AlbumModel.Photos.Count</span>
         }
     </div>
 </div>
@@ -30,13 +30,13 @@
     [Parameter]
     public AlbumResponseModel? AlbumModel { get; set; }
 
-    private int CurrentIndex { get; set; } = 0;
+    private int CurrentIndex { get; set; } = 1;
     private double StartX { get; set; }
     private bool IsDragging { get; set; }
 
     private void ShowNextPhoto()
     {
-        if (AlbumModel != null && CurrentIndex < AlbumModel.Photos.Count - 1)
+        if (AlbumModel != null && CurrentIndex < AlbumModel.Photos.Count)
         {
             CurrentIndex++;
         }
@@ -44,7 +44,7 @@
 
     private void ShowPreviousPhoto()
     {
-        if (AlbumModel != null && CurrentIndex > 0)
+        if (AlbumModel != null && CurrentIndex > 1)
         {
             CurrentIndex--;
         }
