@@ -1,7 +1,7 @@
 <div class="photos-carousel" @ontouchstart="StartDrag" @ontouchend="EndDrag" @ontouchmove="OnDragMove">
     <button class="carousel-button prev-button" @onclick="ShowPreviousPhoto">❮</button>
     <div class="carousel-wrapper">
-        <div class="carousel-track" style="transform: translateX(@($"-{CurrentIndex * 100}%"))">
+        <div class="carousel-track" style="transform: translateX(@($"-{(CurrentIndex - 1) * 100}%"))">
             @if (AlbumModel != null)
             {
                 foreach (var photo in AlbumModel.Photos.OrderBy(p => p.DateUpload))
