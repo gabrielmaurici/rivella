@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+using Rivella.Domain.Exceptions;
 using Rivella.Domain.SeedWork;
 
 namespace Rivella.Domain.Entity;
@@ -28,10 +30,22 @@ public sealed class Photo : Entity<int>
     
     private void Validate()
     {
+        var errorsBuilder = new StringBuilder();
         if (AlbumId <= 0)
-            throw new ArgumentException("IdAlbum é obrigatório", nameof(AlbumId));
-        
+            errorsBuilder.Append("AlbumId é obrigatório, ");
+
         if (string.IsNullOrWhiteSpace(Url))
-            throw new ArgumentException("Url é obrigatório", nameof(Url));
+            errorsBuilder.Append("Url é obrigatório, ");
+
+        if (errorsBuilder.Length > 0)
+        {
+            var errors = errorsBuilder
+                .ToString()
+                .TrimEnd();
+            
+            throw new RequiredFieldsException(
+                errors.Remove(errors.Length - 1, 1)
+            );
+        }
     }
 }

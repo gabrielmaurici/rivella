@@ -10,7 +10,7 @@ public class CreateAlbum(
     IUnitOfWork unitOfWork) : ICreateAlbum
 {
     private readonly string _rivellaLink = Environment.GetEnvironmentVariable("rivella-front-end") ?? 
-                                           throw new ApplicationException("rivellaLink não encontrado"); 
+                                           throw new ApplicationException("rivella-front-end não encontrado"); 
     
     public async Task<AlbumOutput> CreateAsync(CreateAlbumInput input)
     {

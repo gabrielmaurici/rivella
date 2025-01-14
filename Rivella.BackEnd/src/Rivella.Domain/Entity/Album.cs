@@ -1,3 +1,5 @@
+using System.Text;
+using Rivella.Domain.Exceptions;
 using Rivella.Domain.SeedWork;
 
 namespace Rivella.Domain.Entity;
@@ -29,14 +31,27 @@ public sealed class Album : AggregateRoot<int>
     
     private void Validate()
     {
+        var errorsBuilder = new StringBuilder();
         if (Code == Guid.Empty)
-            throw new ArgumentException("Código é obrigatório", nameof(Code));
+            errorsBuilder.Append("Código é obrigatório, ");
 
         if (string.IsNullOrWhiteSpace(Name))
-            throw new ArgumentException("Nome é obrigatório", nameof(Name));
+            errorsBuilder.Append("Nome é obrigatório, ");
+
+        if (QrCode.Length == 0)
+            errorsBuilder.Append("QrCode é obrigatório, ");
+
+        if (errorsBuilder.Length <= 0) 
+            return;
         
-        if (QrCode == null || QrCode.Length == 0)
-            throw new ArgumentException("QrCode é obrigatório", nameof(QrCode));
+        var errors = errorsBuilder
+            .ToString()
+            .TrimEnd();
+            
+        throw new RequiredFieldsException(
+            errors.Remove(errors.Length - 1, 1)
+        );
+
     }
     
     public void UpdateName(string name)

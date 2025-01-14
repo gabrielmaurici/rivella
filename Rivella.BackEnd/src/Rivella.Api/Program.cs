@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Rivella.Api.Configurations;
 using Rivella.Api.Endpoints;
+using Rivella.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
@@ -11,6 +13,7 @@ builder.Services.AddUseCases();
 builder.Services.AddHealthChecks();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ExceptionHandlingMiddleware>();
 
 var rivellaFrontEnd = Environment.GetEnvironmentVariable("rivella-front-end") ??
                       throw new InvalidOperationException("rivella-front-end não encontrado");
@@ -34,9 +37,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
 app.UseCors();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHealthChecks("/health");
 app.RegisterAlbumEndpoints();
 app.RegisterPhotoEndpoints();
-app.UseHttpsRedirection();
 app.Run();

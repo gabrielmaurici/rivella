@@ -2,6 +2,7 @@ using System.Runtime.InteropServices;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Rivella.Application.Interfaces;
+using Rivella.Domain.Exceptions;
 
 namespace Rivella.Infra.Storage.Service;
 
@@ -15,7 +16,7 @@ public class StorageService(Cloudinary storage) : IStorageService
         };
         var result = await storage.UploadAsync(imageUpload);
         if (result.Error != null)
-            throw new ExternalException("Erro ao gravar imagem");
+            throw new SaveImageException();
         
         return result.SecureUrl.AbsoluteUri;
     }
